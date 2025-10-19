@@ -1,9 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from urllib.parse import urlparse, urljoin
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dev-secret-key-change-in-production'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Flask-Login setup
 login_manager = LoginManager()
@@ -33,6 +35,27 @@ def load_user(username):
         return User(username)
     return None
 
+def is_safe_url(target):
+    """
+    Check if a URL is safe to redirect to.
+    
+    This function validates that the redirect URL:
+    - Uses http or https scheme
+    - Points to the same domain as the current request
+    
+    This prevents open redirect vulnerabilities where an attacker could
+    redirect users to malicious external sites.
+    
+    Args:
+        target: The URL to validate
+        
+    Returns:
+        bool: True if URL is safe, False otherwise
+    """
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -50,8 +73,12 @@ def login():
             user = User(username)
             login_user(user)
             flash('Login realizado com sucesso!', 'success')
+            
+            # Safely handle redirect to prevent open redirect vulnerability
             next_page = request.args.get('next')
-            return redirect(next_page if next_page else url_for('dashboard'))
+            if next_page and is_safe_url(next_page):
+                return redirect(next_page)
+            return redirect(url_for('dashboard'))
         else:
             flash('Usuário ou senha inválidos.', 'error')
     
@@ -70,4 +97,6 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use debug mode only in development. Set FLASK_DEBUG=0 or remove for production
+    debug_mode = os.environ.get('FLASK_DEBUG', '1') == '1'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)
