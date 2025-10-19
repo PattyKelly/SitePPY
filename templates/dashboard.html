@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SitePPY{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard">
+        <h2>Dashboard - Acesso Personal</h2>
+        <div class="welcome-message">
+            <p>Bem-vindo, <strong>{{ current_user.name }}</strong>!</p>
+        </div>
+        
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <h3>📊 Visão Geral</h3>
+                <p>Você está logado como: <strong>{{ current_user.id }}</strong></p>
+                <p>Status: <span class="status-badge">Ativo</span></p>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>🔐 Segurança</h3>
+                <p>Seu acesso está protegido e seguro.</p>
+                <p>Última sessão: Hoje</p>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>⚙️ Configurações</h3>
+                <p>Gerencie suas preferências pessoais.</p>
+                <p>Personalize sua experiência.</p>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="{{ url_for('logout') }}" class="btn btn-secondary">Sair da Conta</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
