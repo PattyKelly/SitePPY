@@ -1,0 +1,149 @@
+# requests: chamadas HTTP
+requests>=2.30.0
+
+# pandas: manipulação e exportação de CSV/Excel
+pandas>=2.1.0
+
+# numpy: dependência comum para manipulação numérica (pandas depende em alguns casos)
+numpy>=1.26.0
+
+# python-dotenv: carregar .env localmente (NUNCA commitar .env)
+python-dotenv>=1.0.0
+
+# openpyxl: leitura/escrita de arquivos Excel (xlsx)
+openpyxl>=3.1.0
+
+# beautifulsoup4 + lxml: scraping HTML robusto
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+
+# aiohttp: requisições assíncronas (opcional/útil em scraping de alta performance)
+aiohttp>=4.1.0
+
+# openai: cliente oficial para usar a API OpenAI
+openai>=1.0.0
+
+# schedule: agendamento simples (caso queira rodar localmente)
+schedule>=1.2.0
+
+# validators: validação de URLs / emails
+validators>=0.20.0
+
+# seaborn/matplotlib (opcional) para gráficos nos relatórios
+matplotlib>=3.8.0
+seaborn>=0.13.2
+
+# extras para automação/CLI (opcionais)
+click>=8.1.7
+
+# (Se usa selenium para scraping complexo -> ativar quando necessário)
+# selenium>=4.10.0
+# Dependências principais
+requests>=2.30.0
+pandas>=2.1.0
+numpy>=1.26.0
+
+# Carregar variáveis de ambiente local (.env)
+python-dotenv>=1.0.0
+
+# Excel & IO
+openpyxl>=3.1.0
+
+# Web scraping
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+aiohttp>=4.1.0          # requisições assíncronas (opcional)
+
+# OpenAI
+openai>=1.0.0
+
+# Agendamento simples local
+schedule>=1.2.0
+
+# Validações
+validators>=0.20.0
+
+# Visualização (opcional para relatórios)
+matplotlib>=3.8.0
+seaborn>=0.13.2
+
+# CLI / automação (opcional)
+click>=8.1.7
+
+# Selenium: ativar somente se for realmente necessário (requer chromedriver)
+# selenium>=4.10.0
+@"
+requests>=2.28.0
+pandas>=2.1.0
+numpy>=1.26.0
+openpyxl>=3.1.2
+matplotlib>=3.8.0
+seaborn>=0.13.2
+openai>=1.0.0
+schedule>=1.2.0
+click>=8.1.7
+validators>=0.20.0
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+selenium>=4.10.0
+python-dotenv>=1.0.0
+xlsxwriter>=3.1.2
+"@ | Out-File -Encoding utf8 requirements.txt
+
+# Tente isto primeiro
+.\.venv\Scripts\Activate.ps1
+# se der erro de política, rode (uma vez, como administrador se possível) ─ opcional:
+# Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+# Depois tente ativar de novo.
+
+---
+
+# 13) Checklist QA / LGPD / SEO (rápido)
+- [ ] title / meta description únicos por página (OG tags)
+- [ ] imagens com `alt` e dimensões
+- [ ] sitemap.xml + robots.txt
+- [ ] consent banner (incluído no HTML de exemplo)
+- [ ] aria-labels em menus, landmark roles
+- [ ] cookies: não carregar analytics/ads antes do consent
+- [ ] headers de segurança (HSTS, CSP) no servidor / Netlify
+- [ ] revisar links afiliados (rel="sponsored noopener nofollow") — já tratado no script JS
+- [ ] tests: validar HTML (W3C) e Lighthouse run
+
+---
+
+# 14) Onde colocar os secrets (resumo)
+- **GitHub Actions**:
+  - `GCP_SA_KEY` → conteúdo JSON da service account
+- **Netlify** (Environment variables):
+  - `OPENAI_API_KEY` → chave OpenAI
+  - `GCP_SA_KEY` (se quiser que Netlify functions use Sheets diretamente)
+- **Vercel**: equivalentes em Project Settings > Environment Variables
+
+---
+
+# 15) Comandos rápidos para começar (copy/paste)
+No Windows PowerShell (adaptar caminhos):
+
+```powershell
+# 1. clonar
+git clone <url-repo>
+cd repo
+
+# 2. node setup
+npm install
+
+# 3. python venv
+python -m venv .venv
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser  # se necessário
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# 4. rodar site local (Astro)
+npm run dev
+
+# 5. gerar relatorio python local
+python scripts/relatorio.py --out relatorio_site.csv
+
+# 6. testar função netlify (opcional)
+# instalar netlify cli: npm i -g netlify-cli
+netlify dev

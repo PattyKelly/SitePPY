@@ -1,0 +1,14 @@
+requests>=2.28
+pandas>=2.0
+openpyxl
+gspread
+google-auth
+google-auth-oauthlib
+oauth2client
+openai
+schedule
+validators
+matplotlib
+seaborn
+flask
+python-dotenv

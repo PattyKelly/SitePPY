@@ -1,0 +1,3 @@
+file 'C:\Users\Patty\Desktop\Videos Automatics PY\chuva_estendido.wav'
+file 'C:\Users\Patty\Desktop\Videos Automatics PY\chuva_estendido.wav'
+file 'C:\Users\Patty\Desktop\Videos Automatics PY\chuva_estendido.wav'
