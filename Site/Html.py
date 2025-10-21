@@ -170,3 +170,11 @@ import subprocess, os
 proj = r"C:\Users\Patty\Desktop\NovoSiteWork"
 subprocess.run(["code", proj], check=False)
 
+# antigo (exemplo)
+# sh(["gh", "repo", "create", repo_name, "--" + visibility, "--source=.", "--remote=origin", "--push"])
+
+# substitua por isto (evita erro se gh não instalado)
+if os.getenv("RUN_GH", "0") == "1":
+    sh(["gh", "repo", "create", repo_name, "--" + visibility, "--source=.", "--remote=origin", "--push"])
+else:
+    print("Skip criação automática do repo (gh). Para habilitar defina RUN_GH=1 no ambiente.")
