@@ -1,0 +1,21 @@
+﻿# virtual env
+.venv/
+# python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# env files
+.env
+# editors
+.vscode/
+.idea/
+# local data / outputs
+*.db
+output_video.mp4
+installed_packages.txt
+# excel / reports (se quiser ignorar gerados)
+relatorio_*.csv
+relatorio_*.xlsx
+# large directories (descomente se quiser ignorar)
+VIDEOS/
