@@ -1,21 +1,31 @@
-﻿# virtual env
+﻿# virtual envs
 .venv/
-# python caches
+venv/
+env/
+ENV/
+
+# python caches / compiled
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
-# env files
-.env
-# editors
+
+# distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# editor / os
 .vscode/
 .idea/
-# local data / outputs
+.DS_Store
+Thumbs.db
+
+# large outputs (remova/edite se quiser versionar arquivos específicos)
+*.csv
 *.db
-output_video.mp4
-installed_packages.txt
-# excel / reports (se quiser ignorar gerados)
-relatorio_*.csv
-relatorio_*.xlsx
-# large directories (descomente se quiser ignorar)
+*.xlsx
+OUTPUT*
 VIDEOS/
+
